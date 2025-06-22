@@ -6,26 +6,26 @@ const Features = () => {
   const features = [
     {
       icon: Truck,
-      title: 'Fast Delivery',
-      description: 'Express shipping during emergencies. Get your power solutions when you need them most.',
+      title: 'Entrega inmediata',
+      description: '¡No hay tiempo para esperar! Reactiva tu productividad hoy mismo.',
       color: 'blue'
     },
     {
       icon: Shield,
-      title: 'Verified Vendors',
-      description: 'All sellers are thoroughly vetted. Shop with confidence from trusted energy providers.',
+      title: 'Vendedores verificados',
+      description: 'Compra tranquilo, sabiendo que todos nuestros vendedores son cuidadosamente seleccionados.',
       color: 'green'
     },
     {
       icon: Clock,
-      title: '24/7 Customer Support',
-      description: 'Round-the-clock assistance. Our energy experts are here to help anytime.',
+      title: 'Atención 24/7',
+      description: '¿Necesitas ayuda? Estamos disponibles todo el tiempo para tí.',
       color: 'purple'
     },
     {
       icon: CreditCard,
-      title: 'Secure Payments',
-      description: 'Multiple payment options with bank-level security. Your transactions are protected.',
+      title: 'Pago seguro',
+      description: 'Contamos con los métodos de pagos más seguros en el mercado digítal. ¡Compra tranquilo, ñaño!',
       color: 'orange'
     }
   ];
@@ -45,10 +45,10 @@ const Features = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Why Choose PowerGrid?
+            ¿Por qué Lumina es mejor?
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            We understand the critical importance of reliable power solutions during emergencies
+            Porque entendemos lo malo que trae la falta de electricidad. Por ello te ofrecemos las mejores soluciones.
           </p>
         </div>
 

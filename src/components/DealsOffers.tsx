@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Star, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import powerbank from '../img/powerbank.jpg';
+import generator from '../img/generator.jpg';
+import solar_panel from '../img/solar_panel.jpg';
 
 const DealsOffers = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -9,39 +12,39 @@ const DealsOffers = () => {
   const deals = [
     {
       id: 1,
-      title: 'Emergency Power Bundle',
-      description: 'Power bank + Solar panel + LED lights',
-      originalPrice: 299,
-      salePrice: 199,
-      discount: 33,
-      rating: 4.8,
+      title: 'Kit luminoso de emergencia',
+      description: 'Powerbank + Panel Solar + Luces LED',
+      originalPrice: 40.00,
+      salePrice: 20.00,
+      discount: 50,
+      rating: 4.9,
       reviews: 156,
-      timeLeft: '2 days left',
-      image: 'bg-gradient-to-br from-blue-100 to-blue-200'
+      timeLeft: 'Termina en 2 días',
+      image: powerbank
     },
     {
       id: 2,
-      title: 'Home Backup Generator',
-      description: '5000W Diesel Generator with Auto Start',
-      originalPrice: 1299,
-      salePrice: 999,
-      discount: 23,
+      title: 'Generador a diésel',
+      description: 'Generador a diésel de 5000W con iniciado automático',
+      originalPrice: 400.00,
+      salePrice: 360.00,
+      discount: 10,
       rating: 4.9,
       reviews: 89,
-      timeLeft: '5 days left',
-      image: 'bg-gradient-to-br from-green-100 to-green-200'
+      timeLeft: 'Termina hoy',
+      image: generator
     },
     {
       id: 3,
-      title: 'Solar Power Station',
-      description: 'Portable 1000Wh battery + 200W panels',
-      originalPrice: 799,
-      salePrice: 599,
-      discount: 25,
+      title: 'Estación de energia solar',
+      description: 'Batería de 1000Wh portatil + 2 paneles de 200W',
+      originalPrice: 300.00,
+      salePrice: 150.00,
+      discount: 50,
       rating: 4.7,
       reviews: 203,
-      timeLeft: '1 day left',
-      image: 'bg-gradient-to-br from-yellow-100 to-yellow-200'
+      timeLeft: 'Termina mañana',
+      image: solar_panel
     }
   ];
 
@@ -58,10 +61,10 @@ const DealsOffers = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Limited Time Deals
+            Ofertas de tiempo limitado
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Don't miss out on these exclusive offers for emergency power solutions
+            ¡No te las pierdas! Aprovecha estos jugosos descuentos antes de que se vayan
           </p>
         </div>
 
@@ -77,13 +80,14 @@ const DealsOffers = () => {
                   <div className="bg-white rounded-xl shadow-lg mx-2">
                     <div className="grid md:grid-cols-2 gap-8 p-8">
                       {/* Deal Image */}
-                      <div className={`${deal.image} rounded-lg h-64 flex items-center justify-center relative`}>
+                      <div className={`rounded-lg h-64 flex items-center justify-center relative`}>
+                        <img src={deal.image} alt={deal.title} className="w-full h-full object-cover rounded-lg"/>
                         <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                           {deal.discount}% OFF
                         </div>
-                        <div className="text-6xl font-bold text-gray-400 opacity-50">
+                        {/*<div className="text-6xl font-bold text-gray-400 opacity-50">
                           {deal.id}
-                        </div>
+                        </div>*/}
                       </div>
 
                       {/* Deal Info */}
@@ -134,7 +138,7 @@ const DealsOffers = () => {
 
                         {/* CTA */}
                         <Button className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold">
-                          Add to Cart
+                          Agregar al carrito
                         </Button>
                       </div>
                     </div>

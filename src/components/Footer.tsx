@@ -3,36 +3,37 @@ import React from 'react';
 import { Mail, Facebook, Twitter, Instagram, Youtube, MapPin, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import luminaLogo from '../img/lumina.png';
 
 const Footer = () => {
   const footerLinks = {
     company: [
-      { label: 'About Us', href: '#' },
-      { label: 'Careers', href: '#' },
-      { label: 'Press', href: '#' },
+      { label: 'Sobre nosotros', href: '#' },
+      { label: 'Contacto', href: '#' },
+      { label: 'Ayuda', href: '#' },
       { label: 'Blog', href: '#' },
-      { label: 'Contact', href: '#' }
+      { label: 'Más información', href: '#' }
     ],
     support: [
-      { label: 'Help Center', href: '#' },
-      { label: 'Emergency Support', href: '#' },
-      { label: 'Shipping Info', href: '#' },
-      { label: 'Returns', href: '#' },
-      { label: 'Warranty', href: '#' }
+      { label: 'Centro de Ayuda', href: '#' },
+      { label: 'Soporte', href: '#' },
+      { label: 'Información de envío', href: '#' },
+      { label: 'FAQ', href: '#' },
+      { label: 'Garantía', href: '#' }
     ],
     legal: [
-      { label: 'Terms of Service', href: '#' },
-      { label: 'Privacy Policy', href: '#' },
-      { label: 'Cookie Policy', href: '#' },
-      { label: 'Vendor Agreement', href: '#' },
-      { label: 'Dispute Resolution', href: '#' }
+      { label: 'Términos y condiciones', href: '#' },
+      { label: 'Política de privacidad', href: '#' },
+      { label: 'Política de cookies', href: '#' },
+      { label: 'Acuerdo de vendedor', href: '#' },
+      { label: 'Resolución de disputas', href: '#' }
     ],
     categories: [
-      { label: 'Generators', href: '#' },
-      { label: 'Solar Panels', href: '#' },
-      { label: 'Batteries', href: '#' },
-      { label: 'Power Banks', href: '#' },
-      { label: 'Emergency Kits', href: '#' }
+      { label: 'Generadores', href: '#' },
+      { label: 'Paneles solares', href: '#' },
+      { label: 'Baterías', href: '#' },
+      { label: 'Powerbanks', href: '#' },
+      { label: 'Kits de electricidad', href: '#' }
     ]
   };
 
@@ -44,21 +45,21 @@ const Footer = () => {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <h3 className="text-2xl font-bold mb-2">
-                Stay Powered & Informed
+                ¡Mantente informado!
               </h3>
               <p className="text-blue-100">
-                Get emergency alerts, exclusive deals, and energy tips delivered to your inbox
+                Obtén alertas, promociones, recomendaciones y cupones directamente en tu correo
               </p>
             </div>
             <div className="flex space-x-3">
               <Input
                 type="email"
-                placeholder="Enter your email address"
+                placeholder="Ingresa tu correo electrónico"
                 className="flex-1 bg-white text-gray-900"
               />
               <Button className="bg-white text-blue-600 hover:bg-gray-100 px-6">
                 <Mail className="w-4 h-4 mr-2" />
-                Subscribe
+                Suscribirse
               </Button>
             </div>
           </div>
@@ -70,30 +71,30 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-2 mb-6">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-green-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">P</span>
+                <img src={luminaLogo} alt="Lumina Logo"/>
               </div>
-              <span className="text-2xl font-bold">PowerGrid</span>
+              <span className="text-2xl font-bold">Lumina</span>
             </div>
             <p className="text-gray-300 mb-6 leading-relaxed">
-              Your trusted marketplace for energy solutions during emergencies. Connecting reliable vendors with customers who need power when it matters most.
+              Tu marketplace de confianza para soluciones energéticas en emergencias. Conectamos proveedores confiables con clientes que necesitan energía cuando más importa.
             </p>
             
             {/* Contact Info */}
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Phone className="w-4 h-4 text-blue-400" />
-                <span className="text-sm text-gray-300">24/7 Emergency: +1-800-POWER-NOW</span>
+                <span className="text-sm text-gray-300">Línea 24/7: 1-800-LUMINA-APP</span>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="w-4 h-4 text-green-400" />
-                <span className="text-sm text-gray-300">Global shipping available</span>
+                <span className="text-sm text-gray-300">Envíos a todo Ecuador</span>
               </div>
             </div>
           </div>
 
           {/* Footer Links */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Company</h4>
+            <h4 className="font-semibold text-lg mb-4">Compañía</h4>
             <ul className="space-y-2">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
@@ -106,7 +107,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-semibold text-lg mb-4">Support</h4>
+            <h4 className="font-semibold text-lg mb-4">Soporte</h4>
             <ul className="space-y-2">
               {footerLinks.support.map((link) => (
                 <li key={link.label}>
@@ -119,7 +120,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-semibold text-lg mb-4">Categories</h4>
+            <h4 className="font-semibold text-lg mb-4">Categorías</h4>
             <ul className="space-y-2">
               {footerLinks.categories.map((link) => (
                 <li key={link.label}>
@@ -137,7 +138,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             {/* Social Media */}
             <div className="flex items-center space-x-4">
-              <span className="text-gray-400 text-sm">Follow us:</span>
+              <span className="text-gray-400 text-sm">Síguenos:</span>
               <div className="flex space-x-3">
                 <a href="#" className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors">
                   <Facebook className="w-4 h-4" />
@@ -156,10 +157,10 @@ const Footer = () => {
 
             {/* Copyright & Legal */}
             <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
-              <span>© 2024 PowerGrid. All rights reserved.</span>
+              <span>© 2025 Lumina. Todos los derechos reservados.</span>
               <div className="flex space-x-4">
-                <a href="#" className="hover:text-white transition-colors">Terms</a>
-                <a href="#" className="hover:text-white transition-colors">Privacy</a>
+                <a href="#" className="hover:text-white transition-colors">Términos</a>
+                <a href="#" className="hover:text-white transition-colors">Privacidad</a>
                 <a href="#" className="hover:text-white transition-colors">Cookies</a>
               </div>
             </div>

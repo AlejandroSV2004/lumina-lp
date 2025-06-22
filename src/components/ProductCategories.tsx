@@ -6,51 +6,51 @@ const ProductCategories = () => {
   const categories = [
     {
       icon: Smartphone,
-      title: 'Power Banks',
-      description: 'Portable charging solutions',
-      count: '1,200+ products',
+      title: 'Powerbanks',
+      description: '¡Lleva tu energía donde vayas!',
+      count: '1,200+ productos',
       color: 'blue'
     },
     {
       icon: Sun,
-      title: 'Portable Solar Panels',
-      description: 'Clean energy on-the-go',
-      count: '800+ products',
+      title: 'Paneles solares portatiles',
+      description: 'Energía hasta donde llegué el sol',
+      count: '800+ productos',
       color: 'yellow'
     },
     {
       icon: Battery,
-      title: 'Lithium Batteries',
-      description: 'High-capacity storage',
-      count: '2,100+ products',
+      title: 'Baterías de Litio',
+      description: '¡Cuánta capacidad!',
+      count: '2,100+ productos',
       color: 'green'
     },
     {
       icon: Zap,
-      title: 'Diesel Generators',
-      description: 'Heavy-duty backup power',
-      count: '600+ products',
+      title: 'Generadores de diésel',
+      description: 'Para seguir trabajando',
+      count: '600+ productos',
       color: 'red'
     },
     {
       icon: Settings,
-      title: 'Inverters & UPS',
-      description: 'Power conversion systems',
-      count: '900+ products',
+      title: 'Inversores y UPS',
+      description: 'Convierte tu energía',
+      count: '900+ productos',
       color: 'purple'
     },
     {
       icon: Home,
-      title: 'Home Energy Storage',
-      description: 'Residential power systems',
-      count: '400+ products',
+      title: 'Almacenamiento de energía en el hogar',
+      description: 'Guarda energía para tu hogar',
+      count: '400+ productos',
       color: 'indigo'
     },
     {
       icon: Grid3X3,
-      title: 'Smart Grid Devices',
-      description: 'Intelligent energy management',
-      count: '300+ products',
+      title: 'Dispositivos de almacenamiento inteligente',
+      description: 'Gestionar la energía nunca había sido tan fácil',
+      count: '300+ productos',
       color: 'teal'
     }
   ];
@@ -73,10 +73,10 @@ const ProductCategories = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Shop by Category
+            Compra por categorías
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Find the perfect energy solution for your needs, from portable power to complete home systems
+            Encuentra sin esfuerzo justo eso que necesitas. ¡No te compliques y empieza a disfrutar de soluciones óptimas!
           </p>
         </div>
 
@@ -108,10 +108,10 @@ const ProductCategories = () => {
 
         {/* Emergency Kit Banner */}
         <div className="mt-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl p-8 text-white text-center">
-          <h3 className="text-2xl font-bold mb-2">Emergency Power Kits</h3>
-          <p className="text-lg opacity-90 mb-4">Pre-configured solutions for instant blackout protection</p>
+          <h3 className="text-2xl font-bold mb-2">Kits de electricidad</h3>
+          <p className="text-lg opacity-90 mb-4">Kits pre-armados para cualquier tipo de apuro. ¡Te tenemos cubierto!</p>
           <button className="bg-white text-red-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-            View Emergency Kits
+            Revisar kits
           </button>
         </div>
       </div>

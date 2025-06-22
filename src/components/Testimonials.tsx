@@ -9,24 +9,24 @@ const Testimonials = () => {
       location: 'Quito, Ecuador',
       image: 'bg-gradient-to-br from-pink-100 to-pink-200',
       rating: 5,
-      text: "During the 2023 blackouts, PowerGrid saved our family business. We got a complete backup system delivered in 24 hours. Incredible service during a crisis.",
-      product: 'Emergency Power Bundle'
+      text: "Durante los apagones de 2023, PowerGrid salvó nuestro negocio familiar. Recibimos un sistema de respaldo completo en 24 horas. Un servicio increíble en medio de una crisis.",
+      product: 'Kit de generación de energía'
     },
     {
       name: 'Carlos Mendez',
       location: 'Guayaquil, Ecuador',
       image: 'bg-gradient-to-br from-blue-100 to-blue-200',
       rating: 5,
-      text: "As a small restaurant owner, power outages meant losing daily revenue. The diesel generator we bought here kept us running when others had to close.",
-      product: '5000W Diesel Generator'
+      text: "Como propietario de un pequeño restaurante, los cortes de energía significaban perder ingresos diarios. El generador diésel que compramos aquí nos permitió seguir operando cuando otros tuvieron que cerrar.",
+      product: 'Generador de Diésel de 5000W'
     },
     {
       name: 'Ana Gutierrez',
       location: 'Cuenca, Ecuador',
       image: 'bg-gradient-to-br from-green-100 to-green-200',
       rating: 5,
-      text: "Working from home during blackouts was impossible until I found this solar power station. Now I never worry about losing power during important calls.",
-      product: 'Solar Power Station 1000Wh'
+      text: "Trabajar desde casa durante los apagones era imposible hasta que encontré esta estación de energía solar. Ahora ya no me preocupa perder la energía durante llamadas importantes.",
+      product: 'Estación de generación solar de 1000Wh'
     }
   ];
 
@@ -35,10 +35,10 @@ const Testimonials = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Real Stories from Real Customers
+            Historias reales de clientes reales
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            See how PowerGrid helped people stay powered during Ecuador's energy crisis
+            Lumina ha ayudado a muchas personas. Mira lo que dicen:
           </p>
         </div>
 
@@ -74,7 +74,7 @@ const Testimonials = () => {
 
                 {/* Product */}
                 <div className="text-sm text-blue-600 font-medium">
-                  Product: {testimonial.product}
+                  Producto: {testimonial.product}
                 </div>
 
                 {/* Author */}
@@ -103,7 +103,7 @@ const Testimonials = () => {
           <div className="inline-flex items-center space-x-2 bg-green-100 text-green-800 px-4 py-2 rounded-full">
             <Star className="w-4 h-4 fill-current" />
             <span className="text-sm font-medium">
-              Trusted by 10,000+ customers during emergencies
+              10,000+ clientes confían en nosotros durante apagones
             </span>
           </div>
         </div>

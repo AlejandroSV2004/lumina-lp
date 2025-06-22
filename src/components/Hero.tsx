@@ -12,23 +12,23 @@ const Hero = () => {
           <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Power Through Any{' '}
-                <span className="text-blue-600">Blackout</span>.{' '}
-                <span className="text-green-600">Stay Connected</span> Anytime.
+                Sin electricidad,{' '}
+                <span className="text-blue-600"> con energía</span>.{'   '}
+                <span className="text-green-600">Nunca</span> te frenes.
               </h1>
               <p className="text-xl text-gray-600 leading-relaxed">
-                Explore energy solutions trusted during nationwide outages. From power banks to diesel generators, we connect you with verified vendors for all your energy needs.
+                Descubre soluciones energéticas confiables para enfrentar los cortes de energía. Te conectamos con proveedores verificados para cubrir todas tus necesidades energéticas.
               </p>
             </div>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg rounded-lg transition-all hover:scale-105">
-                Shop Now
+                Comprar
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               <Button variant="outline" className="border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-4 text-lg rounded-lg transition-all">
-                Become a Vendor
+                ¿Eres vendedor?
               </Button>
             </div>
 
@@ -36,11 +36,11 @@ const Hero = () => {
             <div className="flex items-center space-x-8 pt-4">
               <div className="flex items-center space-x-2">
                 <Shield className="w-5 h-5 text-green-600" />
-                <span className="text-sm text-gray-600">Verified Vendors</span>
+                <span className="text-sm text-gray-600">Negocios verificados</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Zap className="w-5 h-5 text-blue-600" />
-                <span className="text-sm text-gray-600">Fast Delivery</span>
+                <span className="text-sm text-gray-600">Entrega inmediata</span>
               </div>
               <div className="text-sm text-gray-600">
                 <span className="font-bold text-green-600">50,000+</span> Products
@@ -56,29 +56,29 @@ const Hero = () => {
                   <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                     <Zap className="w-6 h-6 text-blue-600" />
                   </div>
-                  <h3 className="font-semibold text-gray-800 mb-2">Power Banks</h3>
-                  <p className="text-sm text-gray-600">Portable energy for devices</p>
+                  <h3 className="font-semibold text-gray-800 mb-2">Powerbanks</h3>
+                  <p className="text-sm text-gray-600">Energía portatil a tu alcance</p>
                 </div>
                 <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow mt-8">
                   <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                     <Shield className="w-6 h-6 text-green-600" />
                   </div>
-                  <h3 className="font-semibold text-gray-800 mb-2">Generators</h3>
-                  <p className="text-sm text-gray-600">Backup power solutions</p>
+                  <h3 className="font-semibold text-gray-800 mb-2">Generadores</h3>
+                  <p className="text-sm text-gray-600">Produce tu propia electricidad</p>
                 </div>
                 <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow -mt-4">
                   <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
                     <div className="w-6 h-6 bg-yellow-500 rounded-full"></div>
                   </div>
-                  <h3 className="font-semibold text-gray-800 mb-2">Solar Panels</h3>
-                  <p className="text-sm text-gray-600">Renewable energy</p>
+                  <h3 className="font-semibold text-gray-800 mb-2">Paneles Solares</h3>
+                  <p className="text-sm text-gray-600">Aprovecha toda la energía del sol</p>
                 </div>
                 <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
                   <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
                     <div className="w-6 h-6 bg-purple-500 rounded"></div>
                   </div>
-                  <h3 className="font-semibold text-gray-800 mb-2">Batteries</h3>
-                  <p className="text-sm text-gray-600">Energy storage</p>
+                  <h3 className="font-semibold text-gray-800 mb-2">Baterías</h3>
+                  <p className="text-sm text-gray-600">Para todos tus dispositivos</p>
                 </div>
               </div>
             </div>

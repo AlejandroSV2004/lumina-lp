@@ -9,22 +9,23 @@ const SearchFilters = () => {
   const [selectedBrand, setSelectedBrand] = useState('');
 
   const popularTags = [
-    'Blackout Kit',
-    'Emergency Power',
-    'Off-grid Setup',
-    'Solar Bundle',
-    'Backup Generator',
-    'Portable Battery',
-    'Home UPS',
-    'Camping Power'
+    'Kit para apagones',
+    'Sistemas de emergencia',
+    'Powerbank',
+    'Panel solar',
+    'Generador de respaldo',
+    'Batería portátil',
+    'UPS para el hogar',
+    'Sistemas para acampar'
   ];
 
+
   const priceRanges = [
-    'Under $100',
+    'Menos de $100',
     '$100 - $500',
     '$500 - $1,000',
     '$1,000 - $2,500',
-    'Over $2,500'
+    'Más de $2,500'
   ];
 
   const brands = [
@@ -43,10 +44,10 @@ const SearchFilters = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Find Your Perfect Power Solution
+            Encuentra la solución que mas se adapte a tus necesidades
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Use our advanced filters to quickly find exactly what you need
+            Usa nuestro sistema de filtros avanzado para encontrar justo lo que deseas
           </p>
         </div>
 
@@ -58,7 +59,7 @@ const SearchFilters = () => {
               <div className="relative">
                 <Input
                   type="text"
-                  placeholder="Search by product name, model, or specifications..."
+                  placeholder="Busca por nombre, modelo o especificaciones..."
                   className="w-full pl-4 pr-12 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500"
                 />
                 <Button className="absolute right-0 top-0 h-full px-4 bg-blue-600 hover:bg-blue-700 rounded-l-none">
@@ -74,7 +75,7 @@ const SearchFilters = () => {
                 onChange={(e) => setSelectedPriceRange(e.target.value)}
                 className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 bg-white"
               >
-                <option value="">All Price Ranges</option>
+                <option value="">Cualquier precio</option>
                 {priceRanges.map((range) => (
                   <option key={range} value={range}>
                     {range}
@@ -90,7 +91,7 @@ const SearchFilters = () => {
                 onChange={(e) => setSelectedBrand(e.target.value)}
                 className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 bg-white"
               >
-                <option value="">All Brands</option>
+                <option value="">Cualquier Marca</option>
                 {brands.map((brand) => (
                   <option key={brand} value={brand}>
                     {brand}
@@ -104,19 +105,19 @@ const SearchFilters = () => {
           <div className="flex flex-wrap items-center gap-4 mt-6 pt-6 border-t border-gray-200">
             <div className="flex items-center space-x-2">
               <Filter className="w-4 h-4 text-gray-600" />
-              <span className="text-sm font-medium text-gray-700">Quick Filters:</span>
+              <span className="text-sm font-medium text-gray-700">Filtros ágiles:</span>
             </div>
             <Button variant="outline" size="sm">
-              In Stock
+              Disponible
             </Button>
             <Button variant="outline" size="sm">
-              Fast Shipping
+              Envío rápido
             </Button>
             <Button variant="outline" size="sm">
-              Top Rated
+              Más comprado
             </Button>
             <Button variant="outline" size="sm">
-              On Sale
+              En oferta
             </Button>
           </div>
         </div>
@@ -125,7 +126,7 @@ const SearchFilters = () => {
         <div className="text-center">
           <div className="flex items-center justify-center space-x-2 mb-6">
             <Tag className="w-5 h-5 text-gray-600" />
-            <span className="text-lg font-medium text-gray-700">Popular Searches:</span>
+            <span className="text-lg font-medium text-gray-700">Lo más buscado:</span>
           </div>
           <div className="flex flex-wrap justify-center gap-3">
             {popularTags.map((tag) => (

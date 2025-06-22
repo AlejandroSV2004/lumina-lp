@@ -1,29 +1,29 @@
 
 import React from 'react';
-import { Store, TrendingUp, Users, Headphones } from 'lucide-react';
+import { Store, TrendingUp, Users, Megaphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const VendorSection = () => {
   const benefits = [
     {
       icon: Store,
-      title: 'Reach More Customers',
-      description: 'Access thousands of businesses and consumers looking for energy solutions'
+      title: 'Encuentra más compradores',
+      description: 'En nuestra plataforma se reúnen todas las personas que necesitan soluciones energéticas.'
     },
     {
       icon: TrendingUp,
-      title: 'Grow Your Sales',
-      description: 'Increase revenue with our optimized marketplace and marketing tools'
+      title: 'Vender nunca había sido tan fácil',
+      description: 'Contamos con numerosas herramientas que harán de tu proceso de venta algo más fácil.'
     },
     {
       icon: Users,
-      title: 'Expert Support',
-      description: 'Get dedicated account management and technical assistance'
+      title: 'Recibe ayuda siempre',
+      description: 'Te ofrecemos ayuda y te ofrecemos guías para gestionar mejor tus ventas.'
     },
     {
-      icon: Headphones,
-      title: '24/7 Platform Support',
-      description: 'Round-the-clock help to keep your business running smoothly'
+      icon: Megaphone,
+      title: 'Date a conocer',
+      description: 'Nuestro algoritmo de búsqueda te ayudará a darte a conocer a más clientes.'
     }
   ];
 
@@ -32,10 +32,10 @@ const VendorSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Partner With PowerGrid
+            ¿Quiéres publicar en Lumina?
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Join thousands of energy solution providers reaching customers worldwide
+            Conviértete en uno de nuestros prósperos vendedores. ¡Inicia tu proceso!
           </p>
         </div>
 
@@ -44,7 +44,7 @@ const VendorSection = () => {
           <div className="space-y-8">
             <div className="bg-white rounded-xl p-8 shadow-lg">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                Why Sell on PowerGrid?
+                ¿Por qué vender en Lumina?
               </h3>
               <div className="space-y-6">
                 {benefits.map((benefit, index) => (
@@ -75,25 +75,25 @@ const VendorSection = () => {
               
               <div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Ready to Start Selling?
+                  No esperes más, ¡prospera con nosotros!
                 </h3>
                 <p className="text-gray-600 mb-6">
-                  Join our marketplace and start reaching customers who need reliable energy solutions. Our streamlined onboarding process gets you selling in days, not weeks.
+                  Únete a nuestro marketplace y comienza a llegar a clientes que necesitan soluciones de energía confiables. Nuestro proceso de incorporación simplificado te permite empezar a vender en días, no en semanas.
                 </p>
               </div>
 
               <div className="space-y-4">
                 <Button className="w-full bg-green-600 hover:bg-green-700 text-white py-3 text-lg">
-                  Apply to Become a Vendor
+                  Aplica para ser vendedor
                 </Button>
                 <Button variant="outline" className="w-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white py-3">
-                  Download Vendor Guide
+                  Descarga la guía de vendedor
                 </Button>
               </div>
 
               <div className="pt-4 border-t border-gray-200">
                 <p className="text-sm text-gray-500">
-                  Already a vendor? <a href="#" className="text-blue-600 font-medium">Sign in to your dashboard</a>
+                  ¿Ya eres vendedor? <a href="#" className="text-blue-600 font-medium">Ingresa a tu panel de control</a>
                 </p>
               </div>
             </div>
@@ -105,19 +105,19 @@ const VendorSection = () => {
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-3xl font-bold text-green-600 mb-2">500+</div>
-              <div className="text-gray-600">Active Vendors</div>
+              <div className="text-gray-600">Vendedores activos</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-blue-600 mb-2">50K+</div>
-              <div className="text-gray-600">Products Listed</div>
+              <div className="text-gray-600">Productos publicados</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-purple-600 mb-2">$2M+</div>
-              <div className="text-gray-600">Monthly Sales</div>
+              <div className="text-gray-600">Ventas mensuales</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-orange-600 mb-2">95%</div>
-              <div className="text-gray-600">Vendor Satisfaction</div>
+              <div className="text-gray-600">Satisfacción de ventas</div>
             </div>
           </div>
         </div>
