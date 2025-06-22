@@ -14,7 +14,7 @@ const ProductCategories = () => {
     {
       icon: Sun,
       title: 'Paneles solares portatiles',
-      description: 'Energía hasta donde llegué el sol',
+      description: 'Energía hasta donde llegue el sol',
       count: '800+ productos',
       color: 'yellow'
     },
