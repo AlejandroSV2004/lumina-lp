@@ -44,7 +44,7 @@ const SearchFilters = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Encuentra la solución que mas se adapte a tus necesidades
+            Encuentra la solución que más se adapte a tus necesidades
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Usa nuestro sistema de filtros avanzado para encontrar justo lo que deseas
