@@ -4,7 +4,7 @@ import { Search, ShoppingCart, Menu, User, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import luminaLogo from '../img/lumina.png';
-
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -69,8 +69,8 @@ const Header = () => {
 
         {/* Navigation Menu - Desktop */}
         <nav className="hidden md:flex items-center space-x-8 py-3 border-t">
-          <a href="#" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Página principal</a>
-          <a href="#" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Categorías</a>
+          <Link to="/" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Página principal</Link>
+          <Link to="/categorias" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Categorías</Link>
           <a href="#" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Ofertas</a>
           <a href="#" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Soporte</a>
           <a href="#" className="text-red-600 font-medium">Kits de electricidad</a>

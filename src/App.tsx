@@ -3,8 +3,14 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Categorias from "./pages/Categorias";
+import DetalleCategoria from "./pages/DetalleCategoria";
+// Importa más páginas según las tengas
+// import Kits from './pages/Kits';
+// import Soporte from './pages/Soporte';
 
 const queryClient = new QueryClient();
 
@@ -15,8 +21,17 @@ const App = () => (
       <Sonner />
       <BrowserRouter basename="/lumina-app-emp">
         <Routes>
+          {/* Página de inicio */}
           <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+
+          {/* Página general de categorías */}
+          <Route path="/categorias" element={<Categorias />} />
+          <Route path="/categorias/:nombreCategoria" element={<DetalleCategoria />} />
+          {/* Puedes agregar más así:
+          <Route path="/categorias/paneles-solares" element={<PanelesSolares />} />
+          */}
+
+          {/* Página no encontrada (última siempre) */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
