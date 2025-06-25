@@ -71,7 +71,7 @@ const Header = () => {
         <nav className="hidden md:flex items-center space-x-8 py-3 border-t">
           <Link to="/" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Página principal</Link>
           <Link to="/categorias" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Categorías</Link>
-          <a href="#" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Ofertas</a>
+          <Link to="/ofertas" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Ofertas</Link>
           <a href="#" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Soporte</a>
           <a href="#" className="text-red-600 font-medium">Kits de electricidad</a>
         </nav>
@@ -85,9 +85,9 @@ const Header = () => {
                 placeholder="Search products..."
                 className="w-full"
               />
-              <a href="#" className="text-gray-700 font-medium">Página principal</a>
-              <a href="#" className="text-gray-700 font-medium">Categorías</a>
-              <a href="#" className="text-gray-700 font-medium">Ofertas</a>
+              <Link to="/" className="text-gray-700 font-medium">Página principal</Link>
+              <Link to="/categorias" className="text-gray-700 font-medium">Categorías</Link>
+              <Link to="/ofertas" className="text-gray-700 font-medium">Ofertas</Link>
               <a href="#" className="text-gray-700 font-medium">Soporte</a>
               <Button className="w-full" variant="outline">Iniciar sesión / Regístrate</Button>
             </div>

@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Categorias from "./pages/Categorias";
 import DetalleCategoria from "./pages/DetalleCategoria";
+import Producto from "./pages/Producto";
 // Importa más páginas según las tengas
 // import Kits from './pages/Kits';
 // import Soporte from './pages/Soporte';
@@ -23,7 +24,7 @@ const App = () => (
         <Routes>
           {/* Página de inicio */}
           <Route path="/" element={<Index />} />
-
+          <Route path="/producto/:id" element={<Producto />} />
           {/* Página general de categorías */}
           <Route path="/categorias" element={<Categorias />} />
           <Route path="/categorias/:nombreCategoria" element={<DetalleCategoria />} />
