@@ -1,6 +1,7 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import SearchFiltersCategory from "@/components/SearchFiltersCategory";
 
 // 🔍 Datos simulados por categoría con imagen
 const categoryContent = {
@@ -72,34 +73,36 @@ const DetalleCategoria = () => {
             <h1 className="text-4xl font-bold mb-2">{categoria.title}</h1>
             <p className="text-gray-600 text-lg">{categoria.description}</p>
           </div>
+           {/* Este es mi nuevo componente que genera el conflicto*/}
+          <SearchFiltersCategory/> 
 
           {/* Productos */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 place-items-center">
-            {categoria.products.map(product => (
-              <Link
-                key={product.id}
-                to={`/producto/${product.id}`}
-                className="block w-full max-w-[250px] h-[400px] border rounded-lg p-4 shadow transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between items-center text-center bg-white"
-                >
-                <div className="w-full">
-                    <h2 className="text-lg font-semibold mb-2 max-w-full line-clamp-2 break-words">
-  {product.name}
-</h2>
+<div className="w-full flex justify-center">
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-[900px]">
+    {categoria.products.map(product => (
+      <Link
+        key={product.id}
+        to={`/producto/${product.id}`}
+        className="block w-full max-w-[250px] h-[400px] border rounded-lg p-4 shadow transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between items-center text-center bg-white"
+      >
+        <div className="w-full">
+          <h2 className="text-lg font-semibold mb-2 max-w-full line-clamp-2 break-words">
+            {product.name}
+          </h2>
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-64 object-cover rounded-lg"
+          />
+        </div>
+        <p className="text-blue-600 font-bold text-lg mt-3">
+          ${product.price.toFixed(2)}
+        </p>
+      </Link>
+    ))}
+  </div>
+</div>
 
-                    <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-64 object-cover rounded-lg"
-                    />
-                </div>
-                <p className="text-blue-600 font-bold text-lg mt-3">
-                    ${product.price.toFixed(2)}
-                </p>
-                </Link>
-
-
-            ))}
-          </div>
         </main>
       )}
       <Footer />

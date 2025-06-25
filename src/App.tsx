@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import Categorias from "./pages/Categorias";
 import DetalleCategoria from "./pages/DetalleCategoria";
 import Producto from "./pages/Producto";
+import Ofertas from "./pages/Ofertas"
 // Importa más páginas según las tengas
 // import Kits from './pages/Kits';
 // import Soporte from './pages/Soporte';
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/producto/:id" element={<Producto />} />
           {/* Página general de categorías */}
           <Route path="/categorias" element={<Categorias />} />
+          <Route path="/ofertas" element={<Ofertas />} />
           <Route path="/categorias/:nombreCategoria" element={<DetalleCategoria />} />
           {/* Puedes agregar más así:
           <Route path="/categorias/paneles-solares" element={<PanelesSolares />} />
