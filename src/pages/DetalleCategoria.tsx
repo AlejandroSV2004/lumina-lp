@@ -20,6 +20,12 @@ const categoryContent = {
         name: "Powerbank solar resistente",
         price: 45.5,
         image: "https://placehold.co/200x300"
+      },
+      {
+        id: "5",
+        name: "Powerbank resistente v2",
+        price: 45.5,
+        image: "https://placehold.co/200x300"
       }
     ]
   },
@@ -29,13 +35,19 @@ const categoryContent = {
     products: [
       {
         id: "3",
-        name: "Panel solar 50W dfsddddsdfsdfsdfsdfsdfdsfdsfdsfdsfdfsfsfsdfsdfsdfholamundo",
+        name: "Panel solar 50W",
         price: 89.99,
         image: "https://placehold.co/200x300"
       },
       {
         id: "4",
         name: "Panel solar 100W",
+        price: 139.99,
+        image: "https://placehold.co/200x300"
+      },
+      {
+        id: "6",
+        name: "Panel solar 70W",
         price: 139.99,
         image: "https://placehold.co/200x300"
       }
@@ -53,6 +65,12 @@ const DetalleCategoria = () => {
       <Header />
       {!categoria ? (
         <main className="p-8 text-center">
+          <button
+            onClick={() => navigate("/categorias")}
+            className="mb-6 inline-flex items-center text-blue-600 font-semibold hover:underline"
+          >
+            ← Regresar a todas las categorías
+          </button>
           <h1 className="text-3xl font-bold text-red-600 mb-4">Categoría no encontrada</h1>
           <p>
             La categoría <strong>{nombreCategoria}</strong> no existe o fue removida.

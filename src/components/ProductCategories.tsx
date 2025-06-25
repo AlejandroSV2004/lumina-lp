@@ -91,7 +91,7 @@ const ProductCategories = () => {
   };
 
   return (
-    <section className="py-16 bg-white">
+    <section className="pt-4 pb-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -131,7 +131,7 @@ const ProductCategories = () => {
           <p className="text-lg opacity-90 mb-4">Kits pre-armados para cualquier tipo de apuro. ¡Te tenemos cubierto!</p>
           <button
             className="bg-white text-red-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-            onClick={() => navigate('/kits')}
+            onClick={() => navigate('/#')}
           >
             Revisar kits
           </button>
