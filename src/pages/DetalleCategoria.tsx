@@ -20,12 +20,6 @@ const categoryContent = {
         name: "Powerbank solar resistente",
         price: 45.5,
         image: "https://placehold.co/200x300"
-      },
-      {
-        id: "5",
-        name: "Powerbank resistente v2",
-        price: 45.5,
-        image: "https://placehold.co/200x300"
       }
     ]
   },
@@ -42,12 +36,6 @@ const categoryContent = {
       {
         id: "4",
         name: "Panel solar 100W",
-        price: 139.99,
-        image: "https://placehold.co/200x300"
-      },
-      {
-        id: "6",
-        name: "Panel solar 70W",
         price: 139.99,
         image: "https://placehold.co/200x300"
       }

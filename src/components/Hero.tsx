@@ -17,7 +17,7 @@ const Hero = () => {
                 <span className="text-green-600">Nunca</span> te frenes.
               </h1>
               <p className="text-xl text-gray-600 leading-relaxed">
-                Descubre soluciones energéticas confiables para enfrentar los cortes de energía. Te conectamos con proveedores verificados para cubrir todas tus necesidades energéticas.
+                Descubre soluciones energéticas confiables para enfrentar los cortes de energía. Obtén 25% de descuento en tu primer compra.
               </p>
             </div>
 

@@ -35,7 +35,7 @@ const VendorSection = () => {
             ¿Quieres publicar en Lumina?
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Conviértete en uno de nuestros prósperos vendedores. ¡Inicia tu proceso!
+            Conviértete en uno de nuestros prósperos vendedores. Obtén beneficios exclusivos en tu primer publicación.
           </p>
         </div>
 
