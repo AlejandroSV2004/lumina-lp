@@ -1,74 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Battery,
-  Zap,
-  Sun,
-  Settings,
-  Home,
-  Grid3X3,
-  Smartphone
-} from 'lucide-react';
-
-// Este mismo objeto será útil también en Categorias.tsx
-export const categoryData = [
-  {
-    icon: Smartphone,
-    title: 'Powerbanks',
-    description: '¡Lleva tu energía donde vayas!',
-    count: '1,200+ productos',
-    color: 'blue',
-    slug: 'powerbanks'
-  },
-  {
-    icon: Sun,
-    title: 'Paneles solares portátiles',
-    description: 'Energía hasta donde llegue el sol',
-    count: '800+ productos',
-    color: 'yellow',
-    slug: 'paneles-solares'
-  },
-  {
-    icon: Battery,
-    title: 'Baterías de Litio',
-    description: '¡Cuánta capacidad!',
-    count: '2,100+ productos',
-    color: 'green',
-    slug: 'baterias-litio'
-  },
-  {
-    icon: Zap,
-    title: 'Generadores de diésel',
-    description: 'Para seguir trabajando',
-    count: '600+ productos',
-    color: 'red',
-    slug: 'generadores-diesel'
-  },
-  {
-    icon: Settings,
-    title: 'Inversores y UPS',
-    description: 'Convierte tu energía',
-    count: '900+ productos',
-    color: 'purple',
-    slug: 'inversores-ups'
-  },
-  {
-    icon: Home,
-    title: 'Almacenamiento de energía en el hogar',
-    description: 'Guarda energía para tu hogar',
-    count: '400+ productos',
-    color: 'indigo',
-    slug: 'almacenamiento-hogar'
-  },
-  {
-    icon: Grid3X3,
-    title: 'Dispositivos de almacenamiento inteligente',
-    description: 'Gestionar la energía nunca había sido tan fácil',
-    count: '300+ productos',
-    color: 'teal',
-    slug: 'almacenamiento-inteligente'
-  }
-];
+import * as LucideIcons from 'lucide-react'; 
+import { categories } from '../../data/categories'; 
 
 const getColorClasses = (color: string) => {
   const colorMap = {
@@ -103,26 +36,30 @@ const ProductCategories = () => {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {categoryData.map((category, index) => (
-            <div
-              key={index}
-              onClick={() => handleCategoryClick(category.slug)}
-              className={`bg-gradient-to-br ${getColorClasses(category.color)} rounded-xl p-6 text-white cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl group`}
-            >
-              <div className="flex flex-col items-center text-center space-y-4">
-                <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center group-hover:bg-opacity-30 transition-all">
-                  <category.icon className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg mb-1">{category.title}</h3>
-                  <p className="text-sm opacity-90 mb-2">{category.description}</p>
-                  <span className="text-xs bg-white bg-opacity-20 px-2 py-1 rounded-full">
-                    {category.count}
-                  </span>
+          {categories.map((category, index) => {
+            const IconComponent = LucideIcons[category.icon as keyof typeof LucideIcons];
+
+            return (
+              <div
+                key={index}
+                onClick={() => handleCategoryClick(category.slug)}
+                className={`bg-gradient-to-br ${getColorClasses(category.color)} rounded-xl p-6 text-white cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl group`}
+              >
+                <div className="flex flex-col items-center text-center space-y-4">
+                  <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center group-hover:bg-opacity-30 transition-all">
+                    {IconComponent && React.createElement(IconComponent, { className: "w-6 h-6" })}
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-1">{category.title}</h3>
+                    <p className="text-sm opacity-90 mb-2">{category.description}</p>
+                    <span className="text-xs bg-white bg-opacity-20 px-2 py-1 rounded-full">
+                      {category.count}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Emergency Kit Banner */}

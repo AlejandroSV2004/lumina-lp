@@ -1,50 +1,32 @@
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-
-const allProducts = [
-  {
-    id: "1",
-    name: "Powerbank 10.000 mAh",
-    price: 29.99,
-    image: "https://placehold.co/300x400",
-    description: "Una batería portátil potente y compacta para cargar tus dispositivos en cualquier lugar.",
-    category: "powerbanks"
-  },
-  {
-    id: "2",
-    name: "Powerbank solar resistente",
-    price: 45.5,
-    image: "https://placehold.co/300x400",
-    description: "Diseñada para la aventura, con carga solar y resistente al agua.",
-    category: "powerbanks"
-  },
-  {
-    id: "3",
-    name: "Panel solar 50W",
-    price: 89.99,
-    image: "https://placehold.co/300x400",
-    description: "Ideal para cargar laptops, móviles y otros gadgets en exteriores.",
-    category: "paneles-solares"
-  },
-  {
-    id: "4",
-    name: "Panel solar 100W",
-    price: 139.99,
-    image: "https://placehold.co/300x400",
-    description: "Alta eficiencia y tamaño portátil para energía en movimiento.",
-    category: "paneles-solares"
-  }
-];
+import { products } from "../../data/products";
+import { useCart } from "../../context/CartContext"; // ✅ Usar contexto del carrito
 
 const Producto = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const product = allProducts.find(p => p.id === id);
+  const { addToCart } = useCart(); // ✅ Agregar desde el contexto
+
+  const product = products.find((p) => p.id === id);
+
+  const handleAddToCart = () => {
+    if (product) {
+      addToCart(product.id);
+      alert("Se agregó al carrito");
+    }
+  };
+
+  const handleBuyNow = () => {
+    alert("¡Comprado exitosamente!");
+    // Aquí podrías simular checkout o redirección
+  };
 
   return (
     <div className="min-h-screen bg-white flex flex-col justify-between">
       <Header />
+
       {!product ? (
         <main className="p-8 text-center">
           <h1 className="text-3xl font-bold text-red-600 mb-4">Producto no encontrado</h1>
@@ -73,13 +55,21 @@ const Producto = () => {
               <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
               <p className="text-gray-700 mb-6">{product.description}</p>
 
-              <p className="text-2xl font-bold text-blue-600 mb-4">${product.price.toFixed(2)}</p>
+              <p className="text-2xl font-bold text-blue-600 mb-4">
+                ${product.price.toFixed(2)}
+              </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+                <button
+                  onClick={handleBuyNow}
+                  className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+                >
                   Comprar ahora
                 </button>
-                <button className="border border-blue-600 text-blue-600 px-6 py-2 rounded hover:bg-blue-50 transition">
+                <button
+                  onClick={handleAddToCart}
+                  className="border border-blue-600 text-blue-600 px-6 py-2 rounded hover:bg-blue-50 transition"
+                >
                   Agregar al carrito
                 </button>
               </div>
@@ -91,6 +81,7 @@ const Producto = () => {
           </div>
         </main>
       )}
+
       <Footer />
     </div>
   );

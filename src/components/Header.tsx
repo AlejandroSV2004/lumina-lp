@@ -1,13 +1,14 @@
-
 import React, { useState } from 'react';
 import { Search, ShoppingCart, Menu, User, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import luminaLogo from '../img/lumina.png';
 import { Link } from 'react-router-dom';
+import luminaLogo from '../img/lumina.png';
+import { useCart } from '../../context/CartContext'; // ✅ Importar hook del contexto
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { cartCount } = useCart(); // ✅ Obtener el contador desde el contexto
 
   return (
     <header className="bg-white shadow-sm border-b sticky top-0 z-50">
@@ -17,7 +18,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-green-500 rounded-lg flex items-center justify-center">
-              <img src={luminaLogo} alt="Lumina Logo"/>
+              <img src={luminaLogo} alt="Lumina Logo" />
             </div>
             <span className="text-2xl font-bold text-gray-800">Lumina</span>
           </div>
@@ -51,10 +52,16 @@ const Header = () => {
             </Button>
 
             {/* Shopping Cart */}
-            <Button variant="ghost" className="relative">
-              <ShoppingCart className="w-5 h-5" />
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
-            </Button>
+            <Link to="/carrito">
+              <Button variant="ghost" className="relative">
+                <ShoppingCart className="w-5 h-5" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </Button>
+            </Link>
 
             {/* Mobile Menu Button */}
             <Button
