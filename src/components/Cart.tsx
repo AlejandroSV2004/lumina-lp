@@ -77,7 +77,7 @@ const Cart = () => {
           <div>
             <p>Tu carrito está vacío.</p>
             <a
-              href="/categorias"
+              href="./categorias"
               className="inline-block text-blue-600 hover:underline font-medium"
             >
               Explorar categorías
