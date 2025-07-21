@@ -76,12 +76,12 @@ const Cart = () => {
         <div className="text-center text-gray-600 space-y-6">
           <div>
             <p>Tu carrito está vacío.</p>
-            <a
-              href="./categorias"
-              className="inline-block text-blue-600 hover:underline font-medium"
-            >
-              Explorar categorías
-            </a>
+            <Link
+  to="/categorias"
+  className="inline-block text-blue-600 hover:underline font-medium"
+>
+  Explorar categorías
+</Link>
           </div>
 
           {/* ✅ Productos recomendados */}
