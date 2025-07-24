@@ -1,72 +1,74 @@
 import React, { useState, useEffect } from 'react';
-import {
-  getCart,
-  removeFromCart,
-  decreaseQuantity,
-  clearCart
-} from '../../data/cart';
 import { Button } from '@/components/ui/button';
-import { useCart } from '../../context/CartContext';
-import { products } from '../../data/products';
 import { Link } from 'react-router-dom';
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState(getCart());
-  const [recommended, setRecommended] = useState<typeof products>([]);
-  const { addToCart, refreshCart } = useCart();
-  const [forceUpdate, setForceUpdate] = useState(false); // ✅
+  const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+  const [cartItems, setCartItems] = useState<any[]>([]);
+  const [recommended, setRecommended] = useState<any[]>([]);
+  const [forceUpdate, setForceUpdate] = useState(false);
+
+  const triggerUpdate = () => setForceUpdate(prev => !prev);
 
   useEffect(() => {
-    const cart = getCart();
-    setCartItems(cart);
+    const fetchCart = async () => {
+      if (usuario?.id_usuario) {
+        const res = await fetch(`http://localhost:3001/api/carrito/${usuario.id_usuario}`);
+        const data = await res.json();
+        setCartItems(data);
 
-    if (cart.length === 0) {
-      const shuffled = [...products].sort(() => 0.5 - Math.random());
-      setRecommended(shuffled.slice(0, 3));
-    } else {
-      setRecommended([]);
-    }
-  }, [forceUpdate]); // ✅ Dependemos de forceUpdate
+        if (data.length === 0) {
+          const rec = await fetch(`http://localhost:3001/api/productos/recomendados`);
+          const productos = await res.json();
+          setRecommended(productos);
+        } else {
+          setRecommended([]);
+        }
+      }
+    };
+    fetchCart();
+  }, [forceUpdate]);
 
-  const triggerUpdate = () => setForceUpdate(prev => !prev); // ✅ Alterna valor
-
-  const handleRemove = (id: string) => {
-    removeFromCart(id);
-    refreshCart();
+  const handleRemove = async (id_producto: number) => {
+    await fetch(`http://localhost:3001/api/carrito/${usuario.id_usuario}/${id_producto}`, {
+      method: 'DELETE'
+    });
     triggerUpdate();
   };
 
-  const handleDecrease = (id: string) => {
-    decreaseQuantity(id);
-    refreshCart();
+  const handleDecrease = async (id_producto: number) => {
+    await fetch(`http://localhost:3001/api/carrito/disminuir`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id_usuario: usuario.id_usuario, id_producto })
+    });
     triggerUpdate();
   };
 
-  const handleIncrease = (id: string) => {
-    addToCart(id);
-    refreshCart();
+  const handleIncrease = async (id_producto: number) => {
+    await fetch(`http://localhost:3001/api/carrito/agregar`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id_usuario: usuario.id_usuario, id_producto, cantidad: 1 })
+    });
     triggerUpdate();
   };
 
-  const handleClear = () => {
-    clearCart();
-    refreshCart();
+  const handleClear = async () => {
+    await fetch(`http://localhost:3001/api/carrito/vaciar/${usuario.id_usuario}`, {
+      method: 'DELETE'
+    });
     triggerUpdate();
   };
 
   const handlePurchase = () => {
     if (cartItems.length > 0) {
       alert("¡Compra realizada exitosamente!");
-      clearCart();
-      refreshCart();
-      triggerUpdate();
+      handleClear();
     }
   };
 
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+  const total = cartItems.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
 
   return (
     <section className="p-6 max-w-3xl mx-auto bg-white rounded-xl shadow">
@@ -76,15 +78,10 @@ const Cart = () => {
         <div className="text-center text-gray-600 space-y-6">
           <div>
             <p>Tu carrito está vacío.</p>
-            <Link
-  to="/categorias"
-  className="inline-block text-blue-600 hover:underline font-medium"
->
-  Explorar categorías
-</Link>
+            <Link to="/categorias" className="inline-block text-blue-600 hover:underline font-medium">
+              Explorar categorías
+            </Link>
           </div>
-
-          {/* ✅ Productos recomendados */}
           {recommended.length > 0 && (
             <div className="mt-6">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">
@@ -92,29 +89,13 @@ const Cart = () => {
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {recommended.map((product) => (
-                  <div
-                    key={product.id}
-                    className="border p-4 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center text-center"
-                  >
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-40 object-cover rounded mb-3"
-                    />
-                    <h4 className="font-semibold text-base md:text-lg mb-1 line-clamp-2">
-                      {product.name}
-                    </h4>
+                  <div key={product.id_producto} className="border p-4 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center text-center">
+                    <img src={product.imagen} alt={product.nombre} className="w-full h-40 object-cover rounded mb-3" />
+                    <h4 className="font-semibold text-base md:text-lg mb-1 line-clamp-2">{product.nombre}</h4>
                     <p className="text-blue-600 font-bold text-base mb-3">
-                      ${product.price.toFixed(2)}
+                      ${product.precio.toFixed(2)}
                     </p>
-                    <Button
-                      size="sm"
-                      onClick={() => {
-                        addToCart(product.id);
-                        refreshCart();
-                        triggerUpdate(); // ✅ Forzar re-render y ocultar recomendados
-                      }}
-                    >
+                    <Button size="sm" onClick={() => handleIncrease(product.id_producto)}>
                       Agregar al carrito
                     </Button>
                   </div>
@@ -126,26 +107,22 @@ const Cart = () => {
       ) : (
         <div className="space-y-6">
           {cartItems.map((item) => (
-            <div
-              key={item.id}
-              className="flex justify-between items-center border-b pb-4"
-            >
+            <div key={item.id_producto} className="flex justify-between items-center border-b pb-4">
               <div>
-                <h3 className="text-lg font-semibold">{item.name}</h3>
+                <h3 className="text-lg font-semibold">{item.nombre}</h3>
                 <p className="text-sm text-gray-500">
-                  ${item.price} x {item.quantity} = $
-                  {(item.price * item.quantity).toFixed(2)}
+                  ${item.precio} x {item.cantidad} = ${(item.precio * item.cantidad).toFixed(2)}
                 </p>
               </div>
               <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm" onClick={() => handleDecrease(item.id)}>
+                <Button variant="outline" size="sm" onClick={() => handleDecrease(item.id_producto)}>
                   -
                 </Button>
-                <span className="text-sm">{item.quantity}</span>
-                <Button variant="outline" size="sm" onClick={() => handleIncrease(item.id)}>
+                <span className="text-sm">{item.cantidad}</span>
+                <Button variant="outline" size="sm" onClick={() => handleIncrease(item.id_producto)}>
                   +
                 </Button>
-                <Button variant="outline" size="sm" onClick={() => handleRemove(item.id)}>
+                <Button variant="outline" size="sm" onClick={() => handleRemove(item.id_producto)}>
                   Eliminar
                 </Button>
               </div>
@@ -174,4 +151,3 @@ const Cart = () => {
 };
 
 export default Cart;
-

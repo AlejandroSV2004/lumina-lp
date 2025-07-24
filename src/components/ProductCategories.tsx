@@ -1,7 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as LucideIcons from 'lucide-react'; 
-import { categories } from '../../data/categories'; 
+import * as Icons from 'lucide-react';
+import { Boxes } from 'lucide-react'; // ícono por defecto
+import { categories } from '../../data/categories';
+
+import type { LucideIcon } from 'lucide-react';
 
 const getColorClasses = (color: string) => {
   const colorMap = {
@@ -37,7 +40,7 @@ const ProductCategories = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {categories.map((category, index) => {
-            const IconComponent = LucideIcons[category.icon as keyof typeof LucideIcons];
+            const Icon = Icons[category.icon as keyof typeof Icons] as LucideIcon || Boxes;
 
             return (
               <div
@@ -47,7 +50,7 @@ const ProductCategories = () => {
               >
                 <div className="flex flex-col items-center text-center space-y-4">
                   <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center group-hover:bg-opacity-30 transition-all">
-                    {IconComponent && React.createElement(IconComponent, { className: "w-6 h-6" })}
+                    <Icon className="w-6 h-6" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg mb-1">{category.title}</h3>

@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
-import { Search, ShoppingCart, Menu, User, Globe } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Search, ShoppingCart, Menu, User, Globe, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import luminaLogo from '../img/lumina.png';
-import { useCart } from '../../context/CartContext'; // ✅ Importar hook del contexto
+import { useCart } from '../../context/CartContext';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { cartCount } = useCart(); // ✅ Obtener el contador desde el contexto
+  const { cartCount } = useCart();
+  const navigate = useNavigate();
+
+  const [usuario, setUsuario] = useState<{ nombre_usuario: string, foto_perfil?: string } | null>(null);
+
+  useEffect(() => {
+    const userData = localStorage.getItem('usuario');
+    if (userData) {
+      setUsuario(JSON.parse(userData));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('usuario');
+    setUsuario(null);
+    navigate('/');
+  };
 
   return (
     <header className="bg-white shadow-sm border-b sticky top-0 z-50">
@@ -45,11 +61,40 @@ const Header = () => {
               <span>es/🇪🇨</span>
             </Button>
 
-            {/* Sign In */}
-            <Button variant="ghost" className="hidden md:flex items-center space-x-2">
-              <User className="w-4 h-4" />
-              <span>Iniciar sesión / Regístrate</span>
-            </Button>
+            {/* Auth / Bienvenida */}
+            {!usuario ? (
+              <Link to="/auth">
+                <Button variant="ghost" className="hidden md:flex items-center space-x-2">
+                  <User className="w-4 h-4" />
+                  <span>Iniciar sesión / Regístrate</span>
+                </Button>
+              </Link>
+            ) : (
+              <div className="flex items-center space-x-2">
+                {usuario.foto_perfil ? (
+                  <img
+                    src={usuario.foto_perfil}
+                    alt="Foto de perfil"
+                    className="w-8 h-8 rounded-full object-cover border border-gray-300"
+                  />
+                ) : (
+                  <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 border border-gray-300">
+                    <User className="w-4 h-4" />
+                  </div>
+                )}
+                <span className="text-sm text-gray-700 hidden md:inline">
+                  Bienvenido, <strong>{usuario.nombre_usuario}</strong>
+                </span>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={handleLogout}
+                  title="Cerrar sesión"
+                >
+                  <LogOut className="w-5 h-5 text-red-500" />
+                </Button>
+              </div>
+            )}
 
             {/* Shopping Cart */}
             <Link to="/carrito">
@@ -87,16 +132,22 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t">
             <div className="flex flex-col space-y-4">
-              <Input
-                type="text"
-                placeholder="Search products..."
-                className="w-full"
-              />
+              <Input type="text" placeholder="Buscar productos..." className="w-full" />
               <Link to="/" className="text-gray-700 font-medium">Página principal</Link>
               <Link to="/categorias" className="text-gray-700 font-medium">Categorías</Link>
               <Link to="/ofertas" className="text-gray-700 font-medium">Ofertas</Link>
               <a href="#" className="text-gray-700 font-medium">Soporte</a>
-              <Button className="w-full" variant="outline">Iniciar sesión / Regístrate</Button>
+              {!usuario ? (
+                <Link to="/auth">
+                  <Button className="w-full" variant="outline">
+                    Iniciar sesión / Regístrate
+                  </Button>
+                </Link>
+              ) : (
+                <Button onClick={handleLogout} className="w-full border-red-500 text-red-500" variant="outline">
+                  Cerrar sesión
+                </Button>
+              )}
             </div>
           </div>
         )}

@@ -11,6 +11,7 @@ import DetalleCategoria from "./pages/DetalleCategoria";
 import Producto from "./pages/Producto";
 import Ofertas from "./pages/Ofertas";
 import Carrito from './pages/Carrito';
+import AuthLayoutPage from "./pages/AuthLayoutPage";
 // Importa más páginas según las tengas
 // import Kits from './pages/Kits';
 // import Soporte from './pages/Soporte';
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/producto/:id" element={<Producto />} />
             <Route path="/carrito" element={<Carrito />} />
+            <Route path="/auth" element={<AuthLayoutPage />} />
             {/* Página general de categorías */}
             <Route path="/categorias" element={<Categorias />} />
             <Route path="/ofertas" element={<Ofertas />} />
