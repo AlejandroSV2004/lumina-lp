@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+const API = import.meta.env.VITE_API_URL;
 
 interface Producto {
   id_producto: number;
@@ -24,7 +25,7 @@ const PanelVendedorComp = () => {
         setUsuario(parsed);
 
         // ✅ Usar la ruta RESTful correcta
-        fetch(`http://localhost:3001/api/productosVendedor/${parsed.id_usuario}`)
+        fetch(`${API}/api/productosVendedor/${parsed.id_usuario}`)
           .then(res => res.json())
           .then(data => setProductos(data))
           .catch(err => console.error('Error al cargar productos del vendedor:', err));

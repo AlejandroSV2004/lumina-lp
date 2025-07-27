@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const API = import.meta.env.VITE_API_URL;
+
 export default function AuthPage() {
   const navigate = useNavigate();
 
@@ -48,7 +50,7 @@ export default function AuthPage() {
         headers['Content-Type'] = 'application/json';
       }
 
-      const res = await fetch(`http://localhost:3001/api/usuarios/${endpoint}`, {
+      const res = await fetch(`${API}/api/usuarios/${endpoint}`, {
         method: 'POST',
         headers,
         body

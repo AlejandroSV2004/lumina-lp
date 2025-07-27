@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import SearchFiltersCategory from "@/components/SearchFiltersCategory";
+const API = import.meta.env.VITE_API_URL;
 
 interface Producto {
   id: number;
@@ -24,7 +25,7 @@ const DetalleCategoria = () => {
 
     const fetchProductos = async () => {
       try {
-        const res = await fetch(`http://localhost:3001/api/productos/${nombreCategoria}`);
+        const res = await fetch(`${API}/api/productos/${nombreCategoria}`);
         if (!res.ok) throw new Error("No se pudo obtener productos");
 
         const data = await res.json();

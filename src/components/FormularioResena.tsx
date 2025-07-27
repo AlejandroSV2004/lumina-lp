@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+const API = import.meta.env.VITE_API_URL;
+
 interface Props {
   productoId: string | undefined;
   onResenaEnviada: (nuevas: any[]) => void;
@@ -31,7 +33,7 @@ const FormularioResena: React.FC<Props> = ({ productoId, onResenaEnviada }) => {
     };
 
     try {
-      const res = await fetch("http://localhost:3001/api/resenas", {
+      const res = await fetch(`${API}/api/resenas`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

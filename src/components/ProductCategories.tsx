@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import * as Icons from 'lucide-react';
 import { Boxes } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+const API = import.meta.env.VITE_API_URL;
 
 interface Categoria {
   codigo_categoria: string;
@@ -34,7 +35,7 @@ const ProductCategories = () => {
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const res = await fetch('http://localhost:3001/api/categorias');
+        const res = await fetch(`${API}/api/categorias`);
         const data = await res.json();
         setCategorias(data);
       } catch (error) {
