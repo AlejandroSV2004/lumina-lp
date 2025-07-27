@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  base: mode === 'production' ? '/lumina-app-emp/' : '/',  // 👈 Aquí se arregla
+  base: mode === 'production' ? '/' : '/',  // 👈 Aquí se arregla
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
