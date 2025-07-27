@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Search, ShoppingCart, Menu, User, Globe, LogOut } from 'lucide-react';
+import {
+  Search,
+  ShoppingCart,
+  Menu,
+  User,
+  Globe,
+  LogOut,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,7 +18,12 @@ const Header = () => {
   const { cartCount } = useCart();
   const navigate = useNavigate();
 
-  const [usuario, setUsuario] = useState<{ nombre_usuario: string, foto_perfil?: string } | null>(null);
+  const [usuario, setUsuario] = useState<{
+    id_usuario: string;
+    nombre_usuario: string;
+    foto_perfil?: string;
+    es_negocio?: number;
+  } | null>(null);
 
   useEffect(() => {
     const userData = localStorage.getItem('usuario');
@@ -70,7 +82,7 @@ const Header = () => {
                 </Button>
               </Link>
             ) : (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 cursor-pointer" onClick={() => navigate(`/perfil/${usuario?.id_usuario}`)}>
                 {usuario.foto_perfil ? (
                   <img
                     src={usuario.foto_perfil}
@@ -88,7 +100,10 @@ const Header = () => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={handleLogout}
+                  onClick={(e) => {
+                    e.stopPropagation(); // evita que dispare la navegación al perfil
+                    handleLogout();
+                  }}
                   title="Cerrar sesión"
                 >
                   <LogOut className="w-5 h-5 text-red-500" />
@@ -121,22 +136,47 @@ const Header = () => {
 
         {/* Navigation Menu - Desktop */}
         <nav className="hidden md:flex items-center space-x-8 py-3 border-t">
-          <Link to="/" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Página principal</Link>
-          <Link to="/categorias" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Categorías</Link>
-          <Link to="/ofertas" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Ofertas</Link>
-          <a href="#" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Soporte</a>
-          <a href="#" className="text-red-600 font-medium">Kits de electricidad</a>
-        </nav>
+  <Link to="/" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+    Página principal
+  </Link>
+  <Link to="/categorias" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+    Categorías
+  </Link>
+  <Link to="/ofertas" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+    Ofertas
+  </Link>
+  <a href="#" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+    Soporte
+  </a>
+  <Link to="/feria" className="text-red-600 font-medium transition-colors">
+    ¡Gracias por venir!
+  </Link>
+
+  {usuario?.es_negocio === 1 && (
+  <Link to="/panel-vendedor" className="text-blue-600 font-semibold transition-colors">
+    Panel de vendedor
+  </Link>
+)}
+
+</nav>
+
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t">
-            <div className="flex flex-col space-y-4">
-              <Input type="text" placeholder="Buscar productos..." className="w-full" />
-              <Link to="/" className="text-gray-700 font-medium">Página principal</Link>
-              <Link to="/categorias" className="text-gray-700 font-medium">Categorías</Link>
-              <Link to="/ofertas" className="text-gray-700 font-medium">Ofertas</Link>
-              <a href="#" className="text-gray-700 font-medium">Soporte</a>
+  <div className="md:hidden py-4 border-t">
+    <div className="flex flex-col space-y-4">
+      <Input type="text" placeholder="Buscar productos..." className="w-full" />
+      <Link to="/" className="text-gray-700 font-medium">Página principal</Link>
+      <Link to="/categorias" className="text-gray-700 font-medium">Categorías</Link>
+      <Link to="/ofertas" className="text-gray-700 font-medium">Ofertas</Link>
+      <a href="#" className="text-gray-700 font-medium">Soporte</a>
+      <Link to="/feria" className="text-red-600 font-medium">¡Gracias por venir!</Link>
+
+      {usuario?.es_negocio === 1 && (
+  <Link to="/panel-vendedor" className="text-blue-600 font-medium">Panel de vendedor</Link>
+)}
+
+
               {!usuario ? (
                 <Link to="/auth">
                   <Button className="w-full" variant="outline">
@@ -144,9 +184,17 @@ const Header = () => {
                   </Button>
                 </Link>
               ) : (
-                <Button onClick={handleLogout} className="w-full border-red-500 text-red-500" variant="outline">
-                  Cerrar sesión
-                </Button>
+                <>
+                  <Link to={`/perfil/${usuario.id_usuario}`}>
+  <Button className="w-full" variant="outline">
+    Ir a perfil
+  </Button>
+</Link>
+
+                  <Button onClick={handleLogout} className="w-full border-red-500 text-red-500" variant="outline">
+                    Cerrar sesión
+                  </Button>
+                </>
               )}
             </div>
           </div>

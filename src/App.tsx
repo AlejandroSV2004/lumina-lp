@@ -10,8 +10,10 @@ import Categorias from "./pages/Categorias";
 import DetalleCategoria from "./pages/DetalleCategoria";
 import Producto from "./pages/Producto";
 import Ofertas from "./pages/Ofertas";
+import PerfilPage from "./pages/PerfilPage";
 import Carrito from './pages/Carrito';
 import AuthLayoutPage from "./pages/AuthLayoutPage";
+import PanelVendedor from './pages/PanelVendedor';  
 // Importa más páginas según las tengas
 // import Kits from './pages/Kits';
 // import Soporte from './pages/Soporte';
@@ -35,9 +37,8 @@ const App = () => (
             <Route path="/categorias" element={<Categorias />} />
             <Route path="/ofertas" element={<Ofertas />} />
             <Route path="/categorias/:nombreCategoria" element={<DetalleCategoria />} />
-            {/* Puedes agregar más así:
-            <Route path="/categorias/paneles-solares" element={<PanelesSolares />} />
-            */}
+            <Route path="/panel-vendedor" element={<PanelVendedor />} />  
+            <Route path="/perfil/:id" element={<PerfilPage />} />
 
             {/* Página no encontrada (última siempre) */}
             <Route path="*" element={<NotFound />} />

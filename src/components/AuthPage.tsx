@@ -5,16 +5,21 @@ export default function AuthPage() {
   const navigate = useNavigate();
 
   const [mode, setMode] = useState<'login' | 'register'>('login');
+  const [esVendedor, setEsVendedor] = useState(false);
+
   const [form, setForm] = useState({
     correo: '',
     contrasena: '',
     nombre_usuario: '',
-    id_usuario: ''
+    descripcion: '',
+    localidad: '',
   });
+
   const [imagen, setImagen] = useState<File | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
   };
 
   const handleSubmit = async () => {
@@ -26,15 +31,18 @@ export default function AuthPage() {
 
       if (mode === 'register') {
         const formData = new FormData();
-        formData.append('id_usuario', form.id_usuario);
         formData.append('nombre_usuario', form.nombre_usuario);
         formData.append('correo', form.correo);
         formData.append('contrasena', form.contrasena);
+        formData.append('es_negocio', esVendedor ? 'true' : 'false');
+        if (esVendedor) {
+          formData.append('descripcion', form.descripcion);
+          formData.append('localidad', form.localidad);
+        }
         if (imagen) {
           formData.append('foto_perfil', imagen);
         }
         body = formData;
-        headers = {}; // No poner Content-Type manual, se genera solo
       } else {
         body = JSON.stringify(form);
         headers['Content-Type'] = 'application/json';
@@ -81,13 +89,17 @@ export default function AuthPage() {
 
       {mode === 'register' && (
         <>
-          <input
-            name="id_usuario"
-            placeholder="ID (6 caracteres)"
-            value={form.id_usuario}
-            onChange={handleChange}
-            className="w-full p-2 mb-3 border rounded"
-          />
+          {/* Toggle para vendedor */}
+          <label className="flex items-center mb-3 text-sm">
+            <input
+              type="checkbox"
+              checked={esVendedor}
+              onChange={() => setEsVendedor(!esVendedor)}
+              className="mr-2"
+            />
+            ¿Eres vendedor?
+          </label>
+
           <input
             name="nombre_usuario"
             placeholder="Nombre de usuario"
@@ -101,6 +113,26 @@ export default function AuthPage() {
             onChange={(e) => setImagen(e.target.files?.[0] || null)}
             className="w-full p-2 mb-3 border rounded"
           />
+
+          {/* Campos extra si es vendedor */}
+          {esVendedor && (
+            <>
+              <textarea
+                name="descripcion"
+                placeholder="Descripción del negocio"
+                value={form.descripcion}
+                onChange={handleChange}
+                className="w-full p-2 mb-3 border rounded"
+              />
+              <input
+                name="localidad"
+                placeholder="Localidad"
+                value={form.localidad}
+                onChange={handleChange}
+                className="w-full p-2 mb-3 border rounded"
+              />
+            </>
+          )}
         </>
       )}
 

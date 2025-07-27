@@ -1,84 +1,171 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { products } from "../../data/products";
-import { useCart } from "../../context/CartContext"; // ✅ Usar contexto del carrito
+import Resenas from "../components/Resenas";
+import ProductoDisplay from "../components/ProductoDisplay";
+import FormularioResena from "../components/FormularioResena";
+
+
+
+interface Producto {
+  id: number;
+  name: string;
+  descripcion: string;
+  price: string | number;
+  image: string;
+  sellerId: string;
+  sellerName: string;
+  sellerEmail: string;
+  stock: number;
+}
+
+interface Resena {
+  id: number;
+  id_usuario: string;
+  nombre_usuario: string;
+  calificacion: number;
+  comentario: string;
+  fecha: string;
+}
 
 const Producto = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { addToCart } = useCart(); // ✅ Agregar desde el contexto
+  const [product, setProduct] = useState<Producto | null>(null);
+  const [resenas, setResenas] = useState<Resena[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [usuarioActual, setUsuarioActual] = useState<string | null>(null);
 
-  const product = products.find((p) => p.id === id);
-
-  const handleAddToCart = () => {
-    if (product) {
-      addToCart(product.id);
-      alert("Se agregó al carrito");
+  useEffect(() => {
+    const usuario = localStorage.getItem("usuario");
+    if (usuario) {
+      const parsed = JSON.parse(usuario);
+      setUsuarioActual(parsed.id_usuario);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchProduct = async () => {
+      try {
+        const res = await fetch(`http://localhost:3001/api/producto/${id}`);
+        if (!res.ok) throw new Error("Producto no encontrado");
+        const data = await res.json();
+        setProduct(data);
+        setError(null);
+      } catch (err) {
+        setError("Producto no encontrado o error del servidor");
+        setProduct(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const fetchResenas = async () => {
+      try {
+        const res = await fetch(`http://localhost:3001/api/resenas/${id}`);
+        const data = await res.json();
+        setResenas(data);
+      } catch (err) {
+        console.error("Error al obtener reseñas:", err);
+      }
+    };
+
+    fetchProduct();
+    fetchResenas();
+  }, [id]);
 
   const handleBuyNow = () => {
     alert("¡Comprado exitosamente!");
-    // Aquí podrías simular checkout o redirección
+  };
+
+
+  const handleEliminarResena = async (idResena: number) => {
+    if (!confirm("¿Estás seguro de que deseas eliminar esta reseña?")) return;
+
+    try {
+      const res = await fetch(`http://localhost:3001/api/resenas/${idResena}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) {
+        alert("Error al eliminar reseña");
+        return;
+      }
+
+      const nuevas = resenas.filter((r) => r.id !== idResena);
+      setResenas(nuevas);
+    } catch (err) {
+      alert("Error de servidor al eliminar");
+      console.error(err);
+    }
   };
 
   return (
     <div className="min-h-screen bg-white flex flex-col justify-between">
       <Header />
 
-      {!product ? (
+      {loading ? (
+        <main className="p-8 text-center text-gray-500">Cargando producto...</main>
+      ) : error || !product ? (
         <main className="p-8 text-center">
-          <h1 className="text-3xl font-bold text-red-600 mb-4">Producto no encontrado</h1>
+          <h1 className="text-3xl font-bold text-red-600 mb-4">{error}</h1>
+          <button
+            onClick={() => navigate("/categorias")}
+            className="mt-4 text-blue-600 font-semibold hover:underline"
+          >
+            ← Regresar a categorías
+          </button>
         </main>
       ) : (
-        <main className="p-8 max-w-6xl mx-auto">
-          {/* Botón de regreso */}
+        <main className="p-8 max-w-4xl mx-auto">
           <button
-            onClick={() => navigate(`/categorias/${product.category}`)}
+            onClick={() => navigate(-1)}
             className="mb-6 inline-flex items-center text-blue-600 font-semibold hover:underline"
           >
-            ← Regresar a categoría
+            ← Regresar
           </button>
 
-          {/* Contenido en dos columnas */}
-          <div className="flex flex-col md:flex-row gap-10 items-start">
-            {/* Imagen a la izquierda */}
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-[300px] h-[400px] object-cover rounded-lg"
-            />
+          {/* Producto */}
+          <ProductoDisplay
+  product={product}
+  onBuyNow={handleBuyNow}
+  usuarioActualId={usuarioActual}
+  onActualizarCampo={async (campo, valor) => {
+    try {
+      const res = await fetch(`http://localhost:3001/api/producto/${product.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ [campo]: valor }),
+      });
+      if (res.ok) {
+        setProduct((prev) => prev && { ...prev, [campo]: valor });
+      } else {
+        alert("Error al actualizar");
+      }
+    } catch (err) {
+      alert("Error del servidor");
+    }
+  }}
+/>
 
-            {/* Info del producto a la derecha */}
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-              <p className="text-gray-700 mb-6">{product.description}</p>
 
-              <p className="text-2xl font-bold text-blue-600 mb-4">
-                ${product.price.toFixed(2)}
-              </p>
+          {/* Formulario reseña */}
+          <FormularioResena
+  productoId={id}
+  onResenaEnviada={(nuevas) => setResenas(nuevas)}
+/>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                <button
-                  onClick={handleBuyNow}
-                  className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
-                >
-                  Comprar ahora
-                </button>
-                <button
-                  onClick={handleAddToCart}
-                  className="border border-blue-600 text-blue-600 px-6 py-2 rounded hover:bg-blue-50 transition"
-                >
-                  Agregar al carrito
-                </button>
-              </div>
 
-              <a href="#" className="text-sm text-red-500 hover:underline">
-                Reportar un problema
-              </a>
-            </div>
-          </div>
+          {/* ✅ Componente de reseñas */}
+          <Resenas
+            resenas={resenas}
+            usuarioActual={usuarioActual}
+            onEliminarResena={handleEliminarResena}
+          />
         </main>
       )}
 
