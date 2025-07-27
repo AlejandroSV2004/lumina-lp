@@ -26,7 +26,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <CartProvider>
-        <BrowserRouter basename="/lumina-app-emp">
+        <BrowserRouter basename="/">
           <Routes>
             {/* Página de inicio */}
             <Route path="/" element={<Index />} />
