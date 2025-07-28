@@ -8,7 +8,7 @@ import NotFound from "./pages/NotFound";
 import Categorias from "./pages/Categorias";
 import DetalleCategoria from "./pages/DetalleCategoria";
 import Producto from "./pages/Producto";
-import CreacionProducto from './components/CreacionProducto';
+import CreacionProd from './components/CreacionProducto';
 import Ofertas from "./pages/Ofertas";
 import PerfilPage from "./pages/PerfilPage";
 import Carrito from './pages/Carrito';
@@ -34,7 +34,7 @@ const App = () => (
             <Route path="/auth" element={<AuthLayoutPage />} />
             {/* Página general de categorías */}
             <Route path="/categorias" element={<Categorias />} />
-            <Route path="/crear-producto" element={<CreacionProducto />} />
+            <Route path="/crear-producto" element={<CreacionProd />} />
             <Route path="/ofertas" element={<Ofertas />} />
             <Route path="/categorias/:nombreCategoria" element={<DetalleCategoria />} />
             <Route path="/panel-vendedor" element={<PanelVendedor />} />  
