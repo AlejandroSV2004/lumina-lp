@@ -30,7 +30,7 @@ router.get('/:id_producto', async (req, res) => {
 });
 
 // ✅ Insertar nueva reseña y devolver lista actualizada
-router.post('/', async (req, res) => {
+router.post('/:id', async (req, res) => {
   const { id_usuario, id_producto, calificacion, comentario } = req.body;
 
   // Validaciones básicas
