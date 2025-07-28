@@ -52,7 +52,7 @@ const Producto = () => {
 
     const fetchProduct = async () => {
       try {
-        const res = await fetch(`${API}/api/producto/${id}`);
+        const res = await fetch(`${API}/producto/${id}`);
         if (!res.ok) throw new Error("Producto no encontrado");
         const data = await res.json();
         setProduct(data);
@@ -67,7 +67,7 @@ const Producto = () => {
 
     const fetchResenas = async () => {
       try {
-        const res = await fetch(`${API}/api/resenas/${id}`);
+        const res = await fetch(`${API}/resenas/${id}`);
         const data = await res.json();
         setResenas(data);
       } catch (err) {
@@ -88,7 +88,7 @@ const Producto = () => {
     if (!confirm("¿Estás seguro de que deseas eliminar esta reseña?")) return;
 
     try {
-      const res = await fetch(`${API}/api/resenas/${idResena}`, {
+      const res = await fetch(`${API}/resenas/${idResena}`, {
         method: "DELETE",
       });
 
@@ -137,7 +137,7 @@ const Producto = () => {
   usuarioActualId={usuarioActual}
   onActualizarCampo={async (campo, valor) => {
     try {
-      const res = await fetch(`${API}/api/producto/${product.id}`, {
+      const res = await fetch(`${API}/producto/${product.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ [campo]: valor }),

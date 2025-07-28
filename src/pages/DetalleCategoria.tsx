@@ -25,7 +25,7 @@ const DetalleCategoria = () => {
 
     const fetchProductos = async () => {
       try {
-        const res = await fetch(`${API}/api/productos/${nombreCategoria}`);
+        const res = await fetch(`${API}/productos/${nombreCategoria}`);
         if (!res.ok) throw new Error("No se pudo obtener productos");
 
         const data = await res.json();

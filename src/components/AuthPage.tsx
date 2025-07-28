@@ -50,7 +50,7 @@ export default function AuthPage() {
         headers['Content-Type'] = 'application/json';
       }
 
-      const res = await fetch(`${API}/api/usuarios/${endpoint}`, {
+      const res = await fetch(`${API}/usuarios/${endpoint}`, {
         method: 'POST',
         headers,
         body

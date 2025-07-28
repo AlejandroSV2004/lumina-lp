@@ -34,7 +34,7 @@ const Perfil = () => {
 
   const fetchUsuario = async (id_usuario: string) => {
     try {
-      const res = await fetch(`${API}/api/usuarios/${id_usuario}`);
+      const res = await fetch(`${API}/usuarios/${id_usuario}`);
       const data = await res.json();
       setUsuario(data);
     } catch (err) {
@@ -46,7 +46,7 @@ const Perfil = () => {
     if (!editando || !usuario) return;
     try {
       const body = { [editando]: valorTemp };
-      const res = await fetch(`${API}/api/usuarios/${usuario.id_usuario}`, {
+      const res = await fetch(`${API}/usuarios/${usuario.id_usuario}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

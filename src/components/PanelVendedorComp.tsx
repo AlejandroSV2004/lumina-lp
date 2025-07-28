@@ -25,7 +25,7 @@ const PanelVendedorComp = () => {
         setUsuario(parsed);
 
         // ✅ Usar la ruta RESTful correcta
-        fetch(`${API}/api/productosVendedor/${parsed.id_usuario}`)
+        fetch(`${API}/productosVendedor/${parsed.id_usuario}`)
           .then(res => res.json())
           .then(data => setProductos(data))
           .catch(err => console.error('Error al cargar productos del vendedor:', err));
