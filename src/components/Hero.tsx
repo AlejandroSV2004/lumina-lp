@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Zap, Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -23,14 +24,13 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg rounded-lg transition-all hover:scale-105">
-                Comprar
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-              <Button variant="outline" className="border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-4 text-lg rounded-lg transition-all">
-                ¿Eres vendedor?
-              </Button>
-            </div>
+  <Link to="/categorias">
+    <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg rounded-lg transition-all hover:scale-105">
+      Comprar
+      <ArrowRight className="ml-2 w-5 h-5" />
+    </Button>
+  </Link>
+</div>
 
             {/* Trust Indicators */}
             <div className="flex items-center space-x-8 pt-4">
