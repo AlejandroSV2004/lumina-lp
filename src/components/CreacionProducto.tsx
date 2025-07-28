@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 interface Categoria {
   codigo_categoria: string;
   nombre: string;
+  slug: string;
 }
 
 const CreacionProducto = () => {
@@ -11,7 +12,7 @@ const CreacionProducto = () => {
   const [descripcion, setDescripcion] = useState('');
   const [stock, setStock] = useState('');
   const [imagen, setImagen] = useState('');
-  const [codigoCategoria, setCodigoCategoria] = useState('');
+  const [slugCategoria, setSlugCategoria] = useState('');
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [mensaje, setMensaje] = useState('');
 
@@ -38,12 +39,11 @@ const CreacionProducto = () => {
       precio,
       descripcion,
       stock,
-      codigo_categoria: codigoCategoria,
       imagen
     };
 
     try {
-      const res = await fetch('https://lumina-backend-qhzo.onrender.com/api/productos', {
+      const res = await fetch(`https://lumina-backend-qhzo.onrender.com/api/productos/${slugCategoria}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -58,7 +58,7 @@ const CreacionProducto = () => {
         setDescripcion('');
         setStock('');
         setImagen('');
-        setCodigoCategoria('');
+        setSlugCategoria('');
       } else {
         const { error } = await res.json();
         setMensaje(`❌ ${error || 'Error al crear producto'}`);
@@ -121,14 +121,14 @@ const CreacionProducto = () => {
         />
 
         <select
-          value={codigoCategoria}
-          onChange={(e) => setCodigoCategoria(e.target.value)}
+          value={slugCategoria}
+          onChange={(e) => setSlugCategoria(e.target.value)}
           className="w-full p-2 border rounded"
           required
         >
           <option value="">Selecciona una categoría</option>
           {categorias.map((cat) => (
-            <option key={cat.codigo_categoria} value={cat.codigo_categoria}>
+            <option key={cat.codigo_categoria} value={cat.slug}>
               {cat.nombre}
             </option>
           ))}

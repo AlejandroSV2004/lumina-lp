@@ -8,7 +8,7 @@ import NotFound from "./pages/NotFound";
 import Categorias from "./pages/Categorias";
 import DetalleCategoria from "./pages/DetalleCategoria";
 import Producto from "./pages/Producto";
-import CreacionProd from './components/CreacionProducto';
+import CreacionProd from './pages/CreacionProd';
 import Ofertas from "./pages/Ofertas";
 import PerfilPage from "./pages/PerfilPage";
 import Carrito from './pages/Carrito';
