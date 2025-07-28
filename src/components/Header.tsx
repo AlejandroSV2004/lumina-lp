@@ -11,11 +11,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Link, useNavigate } from 'react-router-dom';
 import luminaLogo from '../img/lumina.png';
-import { useCart } from '../../context/CartContext';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { cartCount } = useCart();
   const navigate = useNavigate();
 
   const [usuario, setUsuario] = useState<{
@@ -115,11 +113,6 @@ const Header = () => {
             <Link to="/carrito">
               <Button variant="ghost" className="relative">
                 <ShoppingCart className="w-5 h-5" />
-                {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {cartCount}
-                  </span>
-                )}
               </Button>
             </Link>
 
