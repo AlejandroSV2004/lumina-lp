@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
 
-type Categoria = {
-  id: string;       // <- coincide con tu backend (antes usabas codigo_categoria)
-  nombre: string;
-  slug: string;
-};
+type Categoria = { id: string; nombre: string; slug: string };
+
+const API_BASE =
+  (import.meta as any)?.env?.VITE_API_URL?.toString()?.replace(/\/+$/, '') ||
+  '';
+
+
+const api = (path: string) =>
+  `${API_BASE}${path.startsWith('/') ? '' : '/'}${path}`;
 
 const CreacionProducto = () => {
   const [nombre, setNombre] = useState('');
@@ -21,70 +25,56 @@ const CreacionProducto = () => {
 
   useEffect(() => {
     if (!usuario?.es_negocio) {
-      setMensaje('❌ Solo cuentas de negocio pueden crear productos');
+      setMensaje('Solo cuentas de negocio pueden crear productos');
     }
 
-    const load = async () => {
+    (async () => {
       try {
-        // OJO: slash final para evitar redirecciones raras
-        const res = await fetch('https://lumina-backend-qhzo.onrender.com/api/categorias/');
-        // si falla, que no truene el .json():
+        const res = await fetch(api('/api/categorias/'));
         let raw: any = [];
         try { raw = await res.json(); } catch { raw = []; }
 
-        // aceptar [ ... ] o { data: [...] }
         const arr = Array.isArray(raw) ? raw : Array.isArray(raw?.data) ? raw.data : [];
-
-        // normalizar a { id, nombre, slug }
         const list: Categoria[] = arr.map((c: any) => ({
-          id: String(c.id ?? c.codigo_categoria ?? ''),  // soporte por si otro backend usa codigo_categoria
+          id: String(c.id ?? c.codigo_categoria ?? ''),
           nombre: String(c.nombre ?? ''),
           slug: String(c.slug ?? ''),
         }));
-
         setCategorias(list);
-      } catch (e) {
-        console.error('Error cargando categorías', e);
-        setMensaje('❌ Error al cargar categorías');
-        setCategorias([]); // para que el .map nunca falle
+      } catch {
+        setMensaje('Error al cargar categorías');
+        setCategorias([]);
       }
-    };
-
-    load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    })();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validaciones rápidas
     if (!id_vendedor) {
-      setMensaje('❌ Debes iniciar sesión');
+      setMensaje('Debes iniciar sesión');
       return;
     }
     if (!slugCategoria) {
-      setMensaje('❌ Selecciona una categoría');
+      setMensaje('Selecciona una categoría');
       return;
     }
 
     const producto = {
       id_vendedor,
       nombre: nombre.trim(),
-      precio: Number(precio),        // <- a número
+      precio: Number(precio),
       descripcion: descripcion.trim(),
-      stock: Number(stock),          // <- a número
+      stock: Number(stock),
       imagen: imagen.trim(),
     };
 
     try {
-      const res = await fetch(
-        `https://lumina-backend-qhzo.onrender.com/api/productos/${encodeURIComponent(slugCategoria)}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(producto),
-        }
-      );
+      const res = await fetch(api(`/api/productos/${encodeURIComponent(slugCategoria)}`), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(producto),
+      });
 
       if (res.ok) {
         setMensaje('Producto creado exitosamente');
@@ -154,7 +144,7 @@ const CreacionProducto = () => {
 
         <input
           type="url"
-          placeholder="URL de imagen (Cloudinary o similar)"
+          placeholder="URL de imagen"
           value={imagen}
           onChange={(e) => setImagen(e.target.value)}
           className="w-full p-2 border rounded"
