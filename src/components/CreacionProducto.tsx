@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 
-interface Categoria {
-  codigo_categoria: string;
+type Categoria = {
+  id: string;       // <- coincide con tu backend (antes usabas codigo_categoria)
   nombre: string;
   slug: string;
-}
+};
 
 const CreacionProducto = () => {
   const [nombre, setNombre] = useState('');
@@ -17,42 +17,77 @@ const CreacionProducto = () => {
   const [mensaje, setMensaje] = useState('');
 
   const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
-  const id_vendedor = usuario.id_usuario;
+  const id_vendedor = usuario?.id_usuario;
 
   useEffect(() => {
-    if (!usuario.es_negocio) {
+    if (!usuario?.es_negocio) {
       setMensaje('❌ Solo cuentas de negocio pueden crear productos');
     }
 
-    fetch('https://lumina-backend-qhzo.onrender.com/api/categorias')
-      .then(res => res.json())
-      .then(data => setCategorias(data))
-      .catch(() => setMensaje('Error al cargar categorías.'));
+    const load = async () => {
+      try {
+        // OJO: slash final para evitar redirecciones raras
+        const res = await fetch('https://lumina-backend-qhzo.onrender.com/api/categorias/');
+        // si falla, que no truene el .json():
+        let raw: any = [];
+        try { raw = await res.json(); } catch { raw = []; }
+
+        // aceptar [ ... ] o { data: [...] }
+        const arr = Array.isArray(raw) ? raw : Array.isArray(raw?.data) ? raw.data : [];
+
+        // normalizar a { id, nombre, slug }
+        const list: Categoria[] = arr.map((c: any) => ({
+          id: String(c.id ?? c.codigo_categoria ?? ''),  // soporte por si otro backend usa codigo_categoria
+          nombre: String(c.nombre ?? ''),
+          slug: String(c.slug ?? ''),
+        }));
+
+        setCategorias(list);
+      } catch (e) {
+        console.error('Error cargando categorías', e);
+        setMensaje('❌ Error al cargar categorías');
+        setCategorias([]); // para que el .map nunca falle
+      }
+    };
+
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Validaciones rápidas
+    if (!id_vendedor) {
+      setMensaje('❌ Debes iniciar sesión');
+      return;
+    }
+    if (!slugCategoria) {
+      setMensaje('❌ Selecciona una categoría');
+      return;
+    }
+
     const producto = {
       id_vendedor,
-      nombre,
-      precio,
-      descripcion,
-      stock,
-      imagen
+      nombre: nombre.trim(),
+      precio: Number(precio),        // <- a número
+      descripcion: descripcion.trim(),
+      stock: Number(stock),          // <- a número
+      imagen: imagen.trim(),
     };
 
     try {
-      const res = await fetch(`https://lumina-backend-qhzo.onrender.com/api/productos/${slugCategoria}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(producto)
-      });
+      const res = await fetch(
+        `https://lumina-backend-qhzo.onrender.com/api/productos/${encodeURIComponent(slugCategoria)}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(producto),
+        }
+      );
 
       if (res.ok) {
-        setMensaje('✅ Producto creado exitosamente');
+        setMensaje('Producto creado exitosamente');
         setNombre('');
         setPrecio('');
         setDescripcion('');
@@ -60,11 +95,15 @@ const CreacionProducto = () => {
         setImagen('');
         setSlugCategoria('');
       } else {
-        const { error } = await res.json();
-        setMensaje(`❌ ${error || 'Error al crear producto'}`);
+        let err = 'Error al crear producto';
+        try {
+          const j = await res.json();
+          if (j?.error) err = j.error;
+        } catch {}
+        setMensaje(`${err}`);
       }
-    } catch (error) {
-      setMensaje('❌ Error al conectar con el servidor');
+    } catch {
+      setMensaje('Error al conectar con el servidor');
     }
   };
 
@@ -90,6 +129,7 @@ const CreacionProducto = () => {
           value={precio}
           onChange={(e) => setPrecio(e.target.value)}
           className="w-full p-2 border rounded"
+          step="0.01"
           required
         />
 
@@ -108,11 +148,12 @@ const CreacionProducto = () => {
           value={stock}
           onChange={(e) => setStock(e.target.value)}
           className="w-full p-2 border rounded"
+          min={0}
           required
         />
 
         <input
-          type="text"
+          type="url"
           placeholder="URL de imagen (Cloudinary o similar)"
           value={imagen}
           onChange={(e) => setImagen(e.target.value)}
@@ -128,7 +169,7 @@ const CreacionProducto = () => {
         >
           <option value="">Selecciona una categoría</option>
           {categorias.map((cat) => (
-            <option key={cat.codigo_categoria} value={cat.slug}>
+            <option key={cat.id} value={cat.slug}>
               {cat.nombre}
             </option>
           ))}
