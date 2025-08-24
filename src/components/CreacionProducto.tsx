@@ -1,16 +1,11 @@
-import { useState, useEffect } from 'react';
+// CreacionProducto.tsx
+import React, { useEffect, useState } from 'react';
 
 type Categoria = { id: string; nombre: string; slug: string };
 
-const API_BASE =
-  (import.meta as any)?.env?.VITE_API_URL?.toString()?.replace(/\/+$/, '') ||
-  '';
+const API = (import.meta as any).env.VITE_API_URL?.replace(/\/+$/, '') || '';
 
-
-const api = (path: string) =>
-  `${API_BASE}${path.startsWith('/') ? '' : '/'}${path}`;
-
-const CreacionProducto = () => {
+const CreacionProducto: React.FC = () => {
   const [nombre, setNombre] = useState('');
   const [precio, setPrecio] = useState('');
   const [descripcion, setDescripcion] = useState('');
@@ -24,16 +19,10 @@ const CreacionProducto = () => {
   const id_vendedor = usuario?.id_usuario;
 
   useEffect(() => {
-    if (!usuario?.es_negocio) {
-      setMensaje('Solo cuentas de negocio pueden crear productos');
-    }
-
-    (async () => {
+    const load = async () => {
       try {
-        const res = await fetch(api('/api/categorias/'));
-        let raw: any = [];
-        try { raw = await res.json(); } catch { raw = []; }
-
+        const res = await fetch(`${API}/categorias/`);
+        const raw = await res.json().catch(() => []);
         const arr = Array.isArray(raw) ? raw : Array.isArray(raw?.data) ? raw.data : [];
         const list: Categoria[] = arr.map((c: any) => ({
           id: String(c.id ?? c.codigo_categoria ?? ''),
@@ -42,15 +31,14 @@ const CreacionProducto = () => {
         }));
         setCategorias(list);
       } catch {
-        setMensaje('Error al cargar categorías');
         setCategorias([]);
       }
-    })();
+    };
+    load();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!id_vendedor) {
       setMensaje('Debes iniciar sesión');
       return;
@@ -60,7 +48,7 @@ const CreacionProducto = () => {
       return;
     }
 
-    const producto = {
+    const body = {
       id_vendedor,
       nombre: nombre.trim(),
       precio: Number(precio),
@@ -70,14 +58,13 @@ const CreacionProducto = () => {
     };
 
     try {
-      const res = await fetch(api(`/api/productos/${encodeURIComponent(slugCategoria)}`), {
+      const res = await fetch(`${API}/productos/${encodeURIComponent(slugCategoria)}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(producto),
+        body: JSON.stringify(body),
       });
-
       if (res.ok) {
-        setMensaje('Producto creado exitosamente');
+        setMensaje('Producto creado');
         setNombre('');
         setPrecio('');
         setDescripcion('');
@@ -85,15 +72,11 @@ const CreacionProducto = () => {
         setImagen('');
         setSlugCategoria('');
       } else {
-        let err = 'Error al crear producto';
-        try {
-          const j = await res.json();
-          if (j?.error) err = j.error;
-        } catch {}
-        setMensaje(`${err}`);
+        const j = await res.json().catch(() => ({}));
+        setMensaje(j?.error || 'Error al crear producto');
       }
     } catch {
-      setMensaje('Error al conectar con el servidor');
+      setMensaje('Error de conexión');
     }
   };
 
