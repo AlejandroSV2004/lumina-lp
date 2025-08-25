@@ -11,7 +11,7 @@ const Index = () => {
       <Header />
 
       <main className="p-6 max-w-6xl mx-auto w-full">
-        {/* 🔙 Botón de regreso */}
+        {/*Botón de regreso */}
         <div className="mb-6">
           <button
             onClick={() => navigate("/")}
@@ -21,7 +21,7 @@ const Index = () => {
           </button>
         </div>
 
-        {/* 🗂 Categorías */}
+        {/*Categorías */}
         <ProductCategories />
       </main>
 

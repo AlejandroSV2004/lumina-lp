@@ -14,9 +14,7 @@ import PerfilPage from "./pages/PerfilPage";
 import Carrito from './pages/Carrito';
 import AuthLayoutPage from "./pages/AuthLayoutPage";
 import PanelVendedor from './pages/PanelVendedor';  
-// Importa más páginas según las tengas
-// import Kits from './pages/Kits';
-// import Soporte from './pages/Soporte';
+
 
 const queryClient = new QueryClient();
 
@@ -39,8 +37,6 @@ const App = () => (
             <Route path="/categorias/:nombreCategoria" element={<DetalleCategoria />} />
             <Route path="/panel-vendedor" element={<PanelVendedor />} />  
             <Route path="/perfil/:id" element={<PerfilPage />} />
-
-            {/* Página no encontrada (última siempre) */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
