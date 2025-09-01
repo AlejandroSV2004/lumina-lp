@@ -142,7 +142,7 @@ const Header = () => {
     Soporte
   </a>
   <Link to="/feria" className="text-red-600 font-medium transition-colors">
-    ¡Gracias por venir!
+    Equipos
   </Link>
 
   {usuario?.es_negocio === 1 && (
@@ -163,7 +163,7 @@ const Header = () => {
       <Link to="/categorias" className="text-gray-700 font-medium">Categorías</Link>
       <Link to="/ofertas" className="text-gray-700 font-medium">Ofertas</Link>
       <a href="#" className="text-gray-700 font-medium">Soporte</a>
-      <Link to="/feria" className="text-red-600 font-medium">¡Gracias por venir!</Link>
+      <Link to="/feria" className="text-red-600 font-medium">Equipo</Link>
 
       {usuario?.es_negocio === 1 && (
   <Link to="/panel-vendedor" className="text-blue-600 font-medium">Panel de vendedor</Link>
